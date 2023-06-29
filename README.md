@@ -18,3 +18,21 @@ If you find our work useful in your research, please cite:
   ```
 
  ## Prequisites
+
+ ## Usage
+ #### Datasets
+ We use [KITTI odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) in our experiments. 
+
+ ### Training
+Train the network by running 
+```
+python traincomer.py
+```
+Please reminder to specify the `onlyneedtest`(False), `loadmodel`(False),`dataroot`,`trainset`(sequences for training), `batch_size` in param/titanrtx_1.py.
+
+ ### Testing
+Test the network by running 
+```
+python traincomer.py
+```
+Please reminder to specify the `onlyneedtest`(True), `loadmodel`(True),`model`(path to HPPLO-Net model), `dataroot`,`trainset`(sequences for testing), `testbatch` in param/titanrtx_1.py.
