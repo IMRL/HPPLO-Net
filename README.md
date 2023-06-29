@@ -1,6 +1,6 @@
 **HPPLO-Net: Unsupervised LiDAR Odometry Using a Hierarchical Point-to-Plane Solver**
 ==============================================================================================================================
-This is the official implementation of IEEE Transactions on Intelligent Vehicles 2023 paper "[**HPPLO-Net: Unsupervised LiDAR Odometry Using a Hierarchical Point-to-Plane Solver**](https://openaccess.thecvf.com/content/CVPR2021/html/Wang_PWCLO-Net_Deep_LiDAR_Odometry_in_3D_Point_Clouds_Using_Hierarchical_CVPR_2021_paper.html)" created by Guangming Wang, Xinrui Wu, Zhe Liu and Hesheng Wang.
+This is the official implementation of IEEE Transactions on Intelligent Vehicles 2023 paper "[**HPPLO-Net: Unsupervised LiDAR Odometry Using a Hierarchical Point-to-Plane Solver**](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10160144)" created by Guangming Wang, Xinrui Wu, Zhe Liu and Hesheng Wang.
 
 ## Citation
 If you find our work useful in your research, please cite:
