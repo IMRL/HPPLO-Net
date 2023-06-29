@@ -18,6 +18,17 @@ If you find our work useful in your research, please cite:
   ```
 
  ## Prequisites
+Our model is trained and tested under:
+- Python 3.7.0
+- NVIDIA GPU + CUDA CuDNN
+- PyTorch (torch >= 1.2.0)
+- scipy
+- tqdm
+- sklearn
+- numba
+- cffi
+- pypng
+- pptk
 
  ## Usage
  #### Datasets
