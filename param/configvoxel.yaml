@@ -1,0 +1,58 @@
+voxeldataname: "ca_0.3_8192_50_-10_uud_c_de"
+modeltype:  "flowonly"
+pwcloss: false
+pwctype: "down"
+flowposenetname: "svd"
+# svdnettype: "po2pl"
+flownpoints: 8192
+
+multiflow: true
+#multiflow_new: true
+multidyna: true
+
+
+# modeltype:  "flowvoxel"  #
+
+# voxeldataname: null
+voxelshape: [10, 32, 32, 256]   # 卷积网络的大小(点数+三维)
+# voxelshape: [30, 16, 266, 466]
+voxelsize: 7680   # discard  稀疏voxel使用 仅flowvoxel有效且voxeldense=false
+voxeldense: true # 数据稀疏度 废弃？
+usenormal: false  # voxel特征提取使用法向量
+
+max_samples: 2048    # netvlad输入点的数量(conv3d网络输出大小)
+# 2,34,30 2040
+cluster_size: 64  # netvlad属性
+output_dim: 1024   # netvlad输出特征大小
+
+dropout: 0.25   # posefc
+
+voxelextract: "second"  # voxelnet网络名字  flowvoxel[second,voxelnet] flowfeature[fc,lstm,second,voxelnet]
+voxel_dim: [32, 128, 128] # voxelnet特征维数  仅flowvoxel有效
+# voxel_dim: [16, 16, 16]
+
+conv3dnet: "sparse"  # conv3d网络名字  normal sparse
+conv_dim: [64, 64, 64, 64]  # conv3d特征维数（普通conv3d只有3层, sparse3-5层）
+# conv_dim: [16, 16, 32, 32, 64]
+
+senceflow: "pointpwc"  # 光流估计网络名字  flownet3d pointpwc 三个都有效
+# pwcloss: false  # 使用pointpwc自己无监督loss 三个都有效
+onlypwcloss: false  # 仅使用pointpwc自己无监督loss
+# pwctype: "org"   #使用更加轻量级的pointpwc, 降低特征维数
+# multiflow: false   #多层次的光流估计都计算位姿
+multiflow_new: false  #以前第3,4层光流估计的目标点选错了
+# multidyna: false  #多层次的光流估计都计算位姿同时对当前帧点云进行校正
+lossratelist: [1.0]   #multiflow不同层级的权重
+pwcnonlocal: [null]
+pwcFPFH: false
+
+flowdirname: null  #使用已经保存的光流估计
+
+# flowposenetname: null   #  flowfeature必定使用
+# svdnettype: "po2po_step"
+# flownpoints: 8192  # 不使用svd而是fc解析光流用到
+insideloss: false # 两个位姿计算距离作为loss 仅flowvoxel有效
+
+conv3drop: 0.0   # 无voxelnet下特征提取dropout  仅flowfeature必定使用有效
+num_layers: 2   # 无voxelnet下特征提取lstm层数  仅flowfeature必定使用有效
+

@@ -1,0 +1,118 @@
+
+# configtitan_1.yaml
+
+lidar-feat-pointseg:  # pointseg feature
+  dropout: 0.1
+
+  #  classes: ['unknown', 'object']
+  bypass: "simple"
+  bn_d: 0.1
+
+  fusion: add # [cat, sub, add]
+  #  part: "encoder" # [encoder]
+  encoder: "resnet" # resnet_delora resnet pointseg
+  extra-layer: 0
+  biadd: false
+
+  activate: "relu"
+  inputlstm: false
+  ConvLSTMType: null # 该项为bid后，num-layers默认为1
+
+  bidirectional: false # convlstmtype为bid或full其作用于
+  hidden_last: false # convlstmtype为full其作用于
+  num-layers: 2  # convlstmtype为bid不起作用
+  featsize: 128
+  newsegnet: true
+  nonormalfea: false
+  usediv: null
+
+preprocess-net:
+  type: "rnn"
+  bypass: "simple"
+  bn_d: 0.1
+  movegrid: false
+  fclast: true
+  p: 0.0
+  imuonlypre: true
+  feattype: "cat"
+
+  usepose: null  # imupose估计的位置
+
+imu-feat-rnn: # RNN
+  type: "lstm"
+
+  dynamiclen: false
+  useGyroNet: false   # 使用gyronet
+  biadd: false     # 双向rnn是否使用双向的信息
+  input-size: 6  # !fixed! do not chanage
+  hidden-size: 128
+  num-layers: 2
+  bidirectional: false
+  dropout: 0.1
+
+  hidden_last: false
+  test_hidden: false
+
+  usepose: "middle"
+  poseusegyro: true # 估计位姿时使用imu的角速度
+
+  addformula: true # 网络输出的视为去噪后的速度加速度角速度而不是位移和旋转
+  initvel: false # 初始速度不视为0
+
+
+# odometry feature network with rnn-layers
+odom-feat-rnn:
+  type: "lstm"
+  seqbyseq: false  # true为选择rnn1
+  biadd: false
+  hidden-size: 1024
+  num-layers: 2
+  bidirectional: false
+  dropout: 0.
+
+  hidden_last: false
+  test_hidden: false
+
+
+
+#config.yaml
+datasets:
+  sequence-size: 4 # must be >= 1
+
+deeplio:
+  dropout: 0.25
+  stepadd: false #使用IMU的情况下，位姿先进过上一步的旋转在叠加{R2(R1x+t1)+t2}{R2R1x+t1t2}
+  lidar-feat-net: "lidar-feat-pointseg"
+  imu-feat-net: "imu-feat-rnn"
+  odom-feat-net: "odom-feat-rnn"
+  fusion-net: "fusion-layer-soft"
+
+lidar-feat-flownet:
+  dropout: 0.1
+  fusion: add # [cat, sub, add]
+
+lidar-feat-pointnet:
+  k_top: 0
+  feature_transform: false
+  usemark: false
+  pointnet++: false
+  fast++: false
+  dropout: 0.1
+  fusion: add # [cat, sub, add]
+
+### Fusion-Layer for DeepLIO Net ###########################
+fusion-layer-cat:
+  type: "cat" # [cat]
+
+fusion-layer-soft:
+  type: "soft" # [soft]
+
+### Odometry Feature Netowrks ###########################
+# odometry feature network with fully connected layers
+odom-feat-fc:
+  hidden-size: [256, 512, 1024]
+  activate: "lerelu"
+  dropout: 0.0
+
+
+

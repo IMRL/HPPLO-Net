@@ -1,0 +1,30 @@
+modeltype:  "flowvoxel"  #
+
+voxelshape: [10, 32, 32, 256]   # 卷积网络的大小(点数+三维)
+voxelsize: 7680   # discard  稀疏voxel使用 仅flowvoxel有效且voxeldense=false
+voxeldense: true # 数据稀疏度
+usenormal: true  # voxel特征提取使用法向量
+useremission: true   # voxel特征提取使用反射
+
+max_samples: 2048    # netvlad输入点的数量(conv3d网络输出大小)
+cluster_size: 64  # netvlad属性
+output_dim: 1024   # netvlad输出特征大小
+
+dropout: 0.25   # posefc
+
+voxelextract: "second"  # voxelnet网络名字  voxelnet second
+voxel_dim: [32, 128, 128] # voxelnet特征维数
+
+conv3dnet: "sparse"  # conv3d网络名字  normal sparse
+conv_dim: [64, 64, 64, 64]  # conv3d特征维数（普通conv3d只有3层, sparse3-5层）
+
+senceflow: "pointpwc"  # 光流估计网络名字  flownet3d pointpwc 三个都有效
+pwcloss: true  # 使用pointpwc自己无监督loss 三个都有效
+
+usesvdnet: true   #  flowfeature必定使用  仅flowvoxel有效
+insideloss: true # 两个位姿计算距离作为loss 仅flowvoxel有效
+
+
+conv3drop: 0.0   # 无voxelnet下特征提取dropout  仅flowfeature必定使用有效
+num_layers: 2   # 无voxelnet下特征提取lstm层数  仅flowfeature必定使用有效
+

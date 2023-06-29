@@ -1,0 +1,253 @@
+newnet:
+  modeltype:  "flowvoxel"  #
+  voxelshape: [10, 32, 32, 256]   # 卷积网络的大小(点数+三维)
+  voxelsize: 7680   # discard  稀疏voxel使用 仅flowvoxel有效且voxeldense=false
+  voxeldense: true # 数据稀疏度
+  usenormal: false  # voxel特征提取使用法向量
+  useremission: false   # voxel特征提取使用反射
+  max_samples: 2048    # netvlad输入点的数量(conv3d网络输出大小)
+  cluster_size: 64  # netvlad属性
+  output_dim: 1024   # netvlad输出特征大小
+  dropout: 0.25   # posefc
+  voxelextract: "second"  # voxelnet网络名字  voxelnet second
+  voxel_dim: [32, 128, 128] # voxelnet特征维数
+  conv3dnet: "sparse"  # conv3d网络名字  normal sparse
+  conv_dim: [64, 64, 64, 64]  # conv3d特征维数（普通conv3d只有3层, sparse3-5层）
+  senceflow: "pointpwc"  # 光流估计网络名字  flownet3d pointpwc 三个都有效
+  pwcloss: false  # 使用pointpwc自己无监督loss 三个都有效
+  pwctype: "org"
+  flowposenetname: null   #  flowfeature必定使用  仅flowvoxel有效
+  flownpoints: 8192
+  insideloss: false # 两个位姿计算距离作为loss 仅flowvoxel有效
+  conv3drop: 0.0   # 无voxelnet下特征提取dropout  仅flowfeature必定使用有效
+  num_layers: 2   # 无voxelnet下特征提取lstm层数  仅flowfeature必定使用有效
+
+
+datasets:
+  sequence-size: 4
+deeplio:
+  dropout: 0.25
+  stepadd: false
+  lidar-feat-net: lidar-feat-pointseg
+  imu-feat-net: imu-feat-rnn
+  odom-feat-net: odom-feat-rnn
+  fusion-net: fusion-layer-soft
+lidar-feat-pointseg:
+  dropout: 0.1
+  encoder: "pointseg"
+  bypass: simple
+  bn_d: 0.1
+  fusion: add
+  extra-layer: 0
+  biadd: false
+  num-layers: 2
+  featsize: 128
+  activate: "relu"
+  inputlstm: false
+  ConvLSTMType: null
+  bidirectional: false
+  hidden_last: false
+  divfeat: false
+  newsegnet: false
+  usediv: null
+preprocess-net:
+  type: "conv"
+  bypass: "simple"
+  bn_d: 0.1
+  movegrid: false
+  fclast: false
+  imuonlypre: false
+  feattype: "minus"
+  p: 0.25
+lidar-feat-flownet:
+  dropout: 0.1
+  fusion: add
+lidar-feat-pointnet:
+  k_top: 0
+  feature_transform: false
+  usemark: false
+  pointnet++: false
+  fast++: false
+  dropout: 0.1
+  fusion: add
+imu-feat-rnn:
+  type: lstm
+  dynamiclen: false
+  useGyroNet: false
+  biadd: false
+  input-size: 6
+  hidden-size: 128
+  num-layers: 2
+  bidirectional: false
+  dropout: 0.1
+  hidden_last: false
+  test_hidden: false
+fusion-layer-cat:
+  type: cat
+fusion-layer-soft:
+  type: soft
+odom-feat-rnn:
+  type: lstm
+  seqbyseq: false
+  biadd: false
+  hidden-size: 1024
+  num-layers: 2
+  bidirectional: false
+  dropout: 0.0
+  hidden_last: false
+  test_hidden: false
+odom-feat-fc:
+  hidden-size: [256, 512, 1024]
+  activate: "lerelu"
+  dropout: 0.0
+trainset:
+- 0
+- 1
+- 2
+- 3
+- 4
+- 5
+- 6
+- 7
+- 8
+testset:
+- 9
+- 10
+iseuler: false
+onlygt: false
+usegt: false
+usedivpointseg: false
+useuncer: false
+drop: null
+lamda: 0.01
+beta: 100
+thetac: 0.4
+c: 6
+num_epochs: 1200
+lr: 0.0001
+step_size: 20
+batch_size: 1
+gamma: 0.5
+predepthnorm: false
+lonetwidth: false
+lonetuncer: false
+uncerlow: 0.01
+uncerhigh: 0.5
+uncerlograte: 1.0
+x55norm: false
+usepointnet: false
+vhacc: false
+adambeta:
+- 0.9
+- 0.99
+depthnorm: false
+muluncerloss: false
+Distributed: false
+flaot64: false
+shuffle_train: true
+avgpool: false
+lonetgt: false
+fullgap: false
+usesemanticinput: false
+usedepth: false
+usebnmaxpool: true
+l2icp: false
+useorgsetting: false
+usesyqnet: false
+head: mlp
+num_features: 512
+prweight: 1.0
+seqlen: 2048
+anglelosstype: null
+usedeeppco: false
+loamheight: false
+uselonet: false
+usesharesiamsenet: false
+useunsharesiamsenet: false
+usesavedata: true
+doubleloss: false
+bypass: false
+useLSTM: false
+usesemanticloss: false
+comquat: null
+useIMU: false
+IMUnorm: false
+IMUtype: null
+useselfattention: false
+continlen: 2
+circlelen: 1
+normalinput: false
+circlebase: 50
+lastdrop: 0.5
+icpthre:
+- 0.0
+- 10000.0
+angthre:
+- 0.0
+- 90.0
+angthrevalue:
+- -1
+- -1
+opttype: adam
+sgdmomentum: 0.9
+usedeeplio: false
+deepliolidarmodel: pointseg
+rnntype: lstm
+weight_decay: 1.0e-05
+epochstep: false
+batchstep: 1
+IMUnormtype: org
+amsgrad: false
+continlosslen: 1
+IMUlen: 15
+divfeat: false
+anglelossrate: 1.0
+loaderstepsize: 1
+needlongterm: false
+equalweight: false
+continnetlen: 1
+randseed: false
+epochthre: 0
+stri_epochthre: 0
+loadmodel: false
+modelname: null
+startepoch: 0
+lowlimit: true
+continnetequal: false
+IMUpreload: false
+imufusetype: null
+changelr: false
+datapreprocess: false
+l2icptheta: 10000.0
+#imuonlypre: false
+lossalldata: null
+globallossrate: 1.0
+glothre:
+- 0.0
+- 90.0
+globallosstype: false
+NPYpreload: null
+parallelloss: false
+reweight:
+- 1
+seednumcpu: 0
+seednumnp: 0
+seednumgpu: 0
+open3dnor: false
+modelepoch: 0
+fordnewheight: false
+deviceid: "-1"
+testcontin2: false
+testcompletion: false
+traincompletion: false
+testbatch: -1
+usevaild: false
+newtestfun: false
+voxeldataname: null
+useapex: false
+seqstepsize:
+- 1
+mapnoground: null
+icpprlossname: null
+icpprrota: false
+svdresidual: null
