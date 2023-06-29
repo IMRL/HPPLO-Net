@@ -4,6 +4,7 @@ This is the official implementation of IEEE Transactions on Intelligent Vehicles
 
 ## Citation
 If you find our work useful in your research, please cite:
+
 '''
   @ARTICLE{10160144,
     author={Zhou, Beibei and Tu, Yiming and Jin, Zhong and Xu, Chengzhong and Kong, Hui},
