@@ -36,3 +36,11 @@ Test the network by running
 python traincomer.py
 ```
 Please reminder to specify the `onlyneedtest`(True), `loadmodel`(True),`model`(path to HPPLO-Net model), `dataroot`,`trainset`(sequences for testing), `testbatch` in param/titanrtx_1.py.
+
+### Acknowledgments
+
+We thank the following open-source project for the help of the implementations:
+- [PointNet++](https://github.com/charlesq34/pointnet2) 
+- [KITTI_odometry_evaluation_tool](https://github.com/LeoQLi/KITTI_odometry_evaluation_tool) 
+- [PointPWC](https://github.com/DylanWusee/PointPWC)
+- [FlowNet3D](https://github.com/xingyul/flownet3d)
