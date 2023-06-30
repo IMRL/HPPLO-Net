@@ -46,7 +46,7 @@ Test the network by running
 ```
 python traincomer.py
 ```
-Please reminder to specify the `onlyneedtest`(True), `loadmodel`(True),`model`(path to HPPLO-Net model), `dataroot`,`trainset`(sequences for testing), `testbatch` in param/titanrtx_1.py.
+Please reminder to specify the `onlyneedtest`(True), `loadmodel`(True),`model`(path to HPPLO-Net model), `dataroot`,`testset`(sequences for testing), `testbatch` in param/titanrtx_1.py.
 
 ### Acknowledgments
 
