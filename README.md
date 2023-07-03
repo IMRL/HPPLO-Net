@@ -50,7 +50,7 @@ Please reminder to specify the `onlyneedtest`(True), `loadmodel`(True),`model`(p
 
 ### Acknowledgments
 
-We thank the following open-source project for the help of the implementations:
+We thank the following open-source projects for the help of the implementations:
 - [PointNet++](https://github.com/charlesq34/pointnet2) 
 - [KITTI_odometry_evaluation_tool](https://github.com/LeoQLi/KITTI_odometry_evaluation_tool) 
 - [PointPWC](https://github.com/DylanWusee/PointPWC)
