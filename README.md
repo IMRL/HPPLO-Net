@@ -35,8 +35,8 @@ Our model is trained and tested under:
  We use [KITTI odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) in our experiments. 
 
  ### Data_preprocess
- - remove the ground points of pointclouds by running groundtest.m located in the directory 'data_preprocess_zbb/matlab_ground/devkit/matlab' using MATLAB.
- - downsample the pointclouds by running the file zbb_data_process.py located in the directory 'data_preprocess_zbb/python_downsample' using python.
+ - remove the ground points of pointclouds by running 'groundtest.m' located in the directory 'data_preprocess_zbb/matlab_ground/devkit/matlab' using MATLAB.
+ - downsample the pointclouds by running the file 'zbb_data_process.py' located in the directory 'data_preprocess_zbb/python_downsample' using python.
 ```
 python zbb_data_process.py
 ```
